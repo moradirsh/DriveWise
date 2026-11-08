@@ -2,7 +2,7 @@
 
 Serverless AWS pipeline that ingests OBD-II telemetry from any gasoline vehicle,
 learns each car's own baseline, detects drift over time, and generates
-plain-English health reports.
+plain English health reports.
 
 > Status: early development. The local ingest parser works; AWS infrastructure,
 > baselines, detection, and reports are not built yet.
@@ -26,11 +26,11 @@ ingest -> store -> baseline -> detect -> report -> dashboard
 | Source | Format | Status |
 |--------|--------|--------|
 | XTool AnyScan A30M | CSV, epoch-ms timestamps, `Name--unit` headers | Parser done |
-| ELM327 BLE dongle + Car Scanner | CSV | Planned |
+| ELM327 BLE dongle + Car Scanner | CSV | Done |
 
 ## Scope
 Works with OBD-II gasoline vehicles that expose standard (SAE J1979) PIDs.
-Manufacturer-specific parameters are stored when present but not required.
+Manufacturer specific parameters are stored when present but not required.
 EVs and most hybrids are out of scope.
 
 ## Run the tests
