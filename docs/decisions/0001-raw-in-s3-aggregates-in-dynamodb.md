@@ -25,3 +25,9 @@ became 157 per-second aggregates, about a 9x reduction.
 - Is 1 second the right bucket, or should aggregates be per 5-10 seconds?
 - DynamoDB key design (partition by vehicle, sort by parameter and time)
   still needs an access-pattern review.
+
+## Update (Car Scanner data)
+Car Scanner delivers about 0.35-0.7 readings per second per sensor, not 10 Hz,
+so a 1-second bucket is mostly empty. Use 10-second buckets (or per-trip
+summaries) for this source. On a 4.4-minute sample, 4,545 allowlisted readings
+became 680 ten-second buckets.

@@ -1,16 +1,21 @@
-"""Collapse raw readings into per-second min/max/mean/count per parameter.
+"""Collapse raw readings into min/max/mean/count per parameter per time bucket.
 
-Raw ~10 Hz data stays in S3; only these aggregates go to DynamoDB.
-Text-valued readings are skipped (they can't be averaged).
+Raw data stays in S3; only these aggregates (or per-trip summaries) go to
+DynamoDB. Text-valued readings are skipped (they can't be averaged).
+
+bucket_seconds defaults to 1, but Car Scanner delivers only ~0.35-0.7 readings
+per second per sensor, so a 1 s bucket is mostly empty; use 10 for that source.
+The "second" key is the epoch second at the start of the bucket.
 """
 
 
-def aggregate_per_second(readings):
+def aggregate_per_second(readings, bucket_seconds=1):
     buckets = {}
     for r in readings:
         if r["value"] is None:
             continue
-        key = (r["parameter"], r["unit"], r["timestamp_ms"] // 1000)
+        start = (r["timestamp_ms"] // 1000) // bucket_seconds * bucket_seconds
+        key = (r["parameter"], r["unit"], start)
         b = buckets.get(key)
         if b is None:
             buckets[key] = {"min": r["value"], "max": r["value"],

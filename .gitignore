@@ -1,0 +1,20 @@
+# Secrets and local config
+.env
+*.pem
+.aws/
+credentials
+
+# Vehicle data that can identify you or your car (VINs, GPS)
+*.pdf
+sample-data/private/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# IaC build output
+cdk.out/
+.terraform/
+*.tfstate*
