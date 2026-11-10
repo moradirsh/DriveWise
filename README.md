@@ -26,11 +26,11 @@ ingest -> store -> baseline -> detect -> report -> dashboard
 | Source | Format | Status |
 |--------|--------|--------|
 | XTool AnyScan A30M | CSV, epoch-ms timestamps, `Name--unit` headers | Parser done |
-| ELM327 BLE dongle + Car Scanner | CSV | Done |
+| ELM327 BLE dongle + Car Scanner | CSV, `SECONDS;PID;VALUE;UNITS` | Parser done |
 
 ## Scope
 Works with OBD-II gasoline vehicles that expose standard (SAE J1979) PIDs.
-Manufacturer specific parameters are stored when present but not required.
+Manufacturer-specific parameters are stored when present but not required.
 EVs and most hybrids are out of scope.
 
 ## Run the tests
@@ -48,6 +48,7 @@ python -m pytest
 
 ## Design decisions
 - [0001: raw data in S3, aggregates in DynamoDB](docs/decisions/0001-raw-in-s3-aggregates-in-dynamodb.md)
+- [0002: sensor allowlist and canonical units at ingest](docs/decisions/0002-allowlist-and-canonical-units.md)
 
 ## What I learned
 (Filled in as I build.)
