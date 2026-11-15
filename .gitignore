@@ -18,3 +18,8 @@ __pycache__/
 cdk.out/
 .terraform/
 *.tfstate*
+
+# Full drive logs stay local; commit only small, trimmed samples (explicitly un-ignored below)
+sample-data/*.csv
+!sample-data/2026-11-07_14-53-58.csv
+!sample-data/a30m_accessory_mode_2026-10-31.csv

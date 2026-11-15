@@ -90,3 +90,10 @@ def test_ten_second_buckets_are_denser_than_one_second():
     ten = aggregate_per_second(readings, 10)
     assert len(ten) < len(one)
     assert max(b["count"] for b in ten) > max(b["count"] for b in one)
+
+
+def test_filename_with_space_instead_of_underscore(tmp_path):
+    p = write_csv(tmp_path, ["53649.5;Engine RPM;800;rpm;\n"], name="2026-11-07 14-53-58.csv")
+    ts = parse_car_scanner_csv(p)["readings"][0]["timestamp_ms"]
+    when = datetime.fromtimestamp(ts / 1000, tz=ZoneInfo("America/Los_Angeles"))
+    assert (when.year, when.month, when.day) == (2026, 11, 7)

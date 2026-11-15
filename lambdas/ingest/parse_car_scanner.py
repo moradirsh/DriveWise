@@ -4,7 +4,7 @@ Input format (observed 2026-11-05 to 2026-11-09):
   - semicolon-delimited, header `SECONDS;PID;VALUE;UNITS;` (trailing empty column)
   - one row per reading (long format)
   - SECONDS is seconds since local midnight, NOT epoch; the date comes from the
-    filename (YYYY-MM-DD_HH-MM-SS.csv)
+    filename (YYYY-MM-DD_HH-MM-SS.csv; the app also writes a space instead of "_")
   - the recording includes every listed sensor plus many app-computed extras
     (fuel price, distance, averages...), so only an allowlist is kept
   - units are US customary (mph, psi, degrees F written as the single character
@@ -19,7 +19,7 @@ import re
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-FILENAME_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})_\d{2}-\d{2}-\d{2}")
+FILENAME_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})[_ ]\d{2}-\d{2}-\d{2}")
 STOICH_AFR = 14.7  # the app labels AFR-scaled values "equivalence ratio"
 
 F = ("\u2109", "\u00b0F")  # the app writes degrees F as one character, U+2109

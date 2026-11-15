@@ -4,8 +4,9 @@ Serverless AWS pipeline that ingests OBD-II telemetry from any gasoline vehicle,
 learns each car's own baseline, detects drift over time, and generates
 plain English health reports.
 
-> Status: early development. The local ingest parser works; AWS infrastructure,
-> baselines, detection, and reports are not built yet.
+> Status: early development. Parsing, unit normalization, per-trip summaries and the
+> idempotent ingest handler work locally (tested against fake S3 and DynamoDB). AWS
+> infrastructure, baselines, detection, and reports are not built yet.
 
 ## Why I built this
 Scanner apps show live gauges and trouble codes. They don't track long-term
@@ -35,8 +36,9 @@ EVs and most hybrids are out of scope.
 
 ## Run the tests
 ```bash
-pip install -r requirements-dev.txt
-python -m pytest
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements-dev.txt   # macOS/Linux: .venv/bin/python
+.venv/Scripts/python -m pytest -q
 ```
 
 ## Repo layout
