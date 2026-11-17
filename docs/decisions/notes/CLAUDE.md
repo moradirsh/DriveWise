@@ -55,10 +55,9 @@ CloudShell home is about 1 GB, so install Node with `nvm install 22 -b` (binary 
 Done: repo, parsers, aggregation, CDK scaffold deployed, ingest handler and trip summaries
 (tested locally with fake S3 and DynamoDB).
 Next (roadmap revised 2026-11-14):
-0. Housekeeping: commit handler/trip_summary + tests; mark ADR 0001 accepted;
-   update README status (per-trip summaries, not per-second aggregates, in DynamoDB).
-1. Write ADR 0003 (DynamoDB key design): list access patterns (latest trips per vehicle, one
-   parameter across trips via GSI1, baseline reads) and why the TRIP item is the commit marker.
+0. (done 2026-11-16) Housekeeping: handler/trip_summary committed, ADR 0001 accepted, README updated.
+1. (done 2026-11-16) ADR 0003 written. Consequence for step 4: baseline/detect must ignore SUM items
+   whose trip_id has no TRIP item (uncommitted ingests are visible through GSI1).
 2. Phase 1 CDK stack: S3 bucket (public access blocked, lifecycle), DynamoDB table + GSI1,
    Python ingest Lambda (bundle `tzdata`), S3 notification on `raw/` for `.csv`, least-privilege
    grants, Lambda log retention set (default is never-expire). Deploy and test with the sample CSV,

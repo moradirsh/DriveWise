@@ -1,0 +1,3 @@
+# Runtime dependencies bundled into the ingest Lambda (boto3 is provided by the runtime).
+# tzdata: zoneinfo needs a timezone database; don't rely on the runtime image having one.
+tzdata

@@ -51,6 +51,7 @@ python -m venv .venv
 ## Design decisions
 - [0001: raw data in S3, aggregates in DynamoDB](docs/decisions/0001-raw-in-s3-aggregates-in-dynamodb.md)
 - [0002: sensor allowlist and canonical units at ingest](docs/decisions/0002-allowlist-and-canonical-units.md)
+- [0003: DynamoDB single-table key design](docs/decisions/0003-dynamodb-key-design.md)
 
 ## What I learned
 (Filled in as I build.)

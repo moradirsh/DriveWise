@@ -6,6 +6,7 @@ TRIP item last (conditional put) as the commit marker, so a crash mid-way
 leaves no trip item and a retry simply rewrites the same summaries.
 """
 import hashlib
+import json
 import os
 import re
 from datetime import date, datetime, timezone
@@ -116,5 +117,8 @@ def handler(event, context=None):
     for rec in event.get("Records", []):
         bucket = rec["s3"]["bucket"]["name"]
         key = unquote_plus(rec["s3"]["object"]["key"])
-        results.append(ingest_object(bucket, key))
+        result = ingest_object(bucket, key)
+        # S3 invokes asynchronously, so the return value is discarded; log it.
+        print(json.dumps({"key": key, **result}))
+        results.append(result)
     return results
